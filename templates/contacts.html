@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+    {% block title %} contactos {% endblock %}
+
+        {% block content %}
+            <form>
+                <select>
+                    {% for company in contacts %}
+                        <option>{% companies.type  %}</option>
+                    {% endfor %}
+                </select>
+            </form>
+            <table>
+                <tr>
+                    <td>Nombre</td>
+                    <td>Descripcion</td>
+                </tr>
+                {% for contact in contacts %}
+                    <tr>
+                        <td>{% contact.name %}</td>
+                        <td>{% cotact.description %}</td>
+                        <td>{# boton para crear la tabla siguiente #} </td>
+                    </tr>
+                {% endfor %}
+            </table>
+                <tr>
+                    <td>Nombre propietario</td>
+                    <td>Email</td>
+                    <td>numero de Telefono</td>
+                    <td>direccion</td>
+                    <td>Descripcion</td>
+                </tr>
+                <tr>
+                    {% for descrip in description %}
+                        <td>{% descrip.name %}</td>
+                        <td>{% descrip.email %}</td>
+                        <td>{% descrip.numberTL %}</td>
+                        <td>{% descrip.direction %}</td>
+                        <td>{% descrip.description %}</td>
+                    {% endfor %}
+                </tr>
+            <table>
+
+            </table>
+        {% endblock %}
+{#        <table>#}
+{#            {% for contact in contacts%}#}
+{#                <tr>#}
+{##}
+{#                    <td>#}
+{#                        {% contact.name %}#}
+{#                    </td>#}
+{#                    <td>#}
+{#                        {% contact.email %}#}
+{#                    </td>#}
+{#                    <td>#}
+{#                        {% contact.numero %}#}
+{#                    </td>#}
+{#                    <td>#}
+{#                        {% contact.action %}#}
+{#                    </td>#}
+{#                    <td>#}
+{#                        {% contact.direction %}#}
+{#                    </td>#}
+{#                    <td>#}
+{#                        {% contact.name_company %}#}
+{#                    </td>#}
+{#                    <td>#}
+{#                        {% contact.description %}#}
+{#                    </td>#}
+{##}
+{#                </tr>#}
+{#            {%endfor%}#}
+{#        </table>#}
+
+
+

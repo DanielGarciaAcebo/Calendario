@@ -1,0 +1,19 @@
+{% extends "indexLayout.html" %}
+
+{% block title %} login calendario{% endblock %}
+
+{% block content %}
+
+    <h1> Registrarse </h1>
+
+    <form method="POST">
+        {% from "_macro.html" import showForms %}
+            {{ showForms(form) }}
+        <tr>
+            <td><button type="submit">Entrar</button></td>
+            <td><button type="reset">Volver a cargar</button> </td>
+            <td><button type="button">Volver</button> </td>
+            <td><button type="button">Iniciar sesion</button> </td>
+        </tr>
+    </form>
+{% endblock%}

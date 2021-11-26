@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+    {% block title %} calendario {% endblock %}
+        <table>
+            {% for seed in seeds%}
+                <tr>
+
+                    <td>
+                        {% seed.name %}
+                    </td>
+                    <td>
+                        {% seed.start_day %}
+                    </td>
+                    <td>
+                        {% seed.end_day %}
+                    </td>
+                    <td>
+                        {% seed.time_collection %}
+                    </td>
+                    <td>
+                        {% seed.day_time %}
+                    </td>
+                    <td>
+                        {% seed.description %}
+                    </td>
+                    <td>
+                        <form>
+                            <input type="checkbox" id="{% seed.id %}" name="show"> Mostrar en el Calendario
+                        </form>
+                    </td>
+
+                </tr>
+            {%endfor%}
+        </table>
+
+    {% block content %}
+
+{% endblock %}

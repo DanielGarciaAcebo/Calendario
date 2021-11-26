@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %} Flask {% endblock %} | Calendario Agroganadero</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        {% block head %}
+
+        {% endblock %}
+    </head>
+    <body>
+        <h1>Calendario Agroganadero</h1>
+        <hr/>
+            <ul>
+                <li>
+                    <a href="{{url_for('index')}}">Inicio</a>
+                </li>
+                <li>
+                    <a href="{{url_for('incidencias')}}">Informacion</a>
+                </li>
+                <li>
+                    <a href="{{url_for('contactos')}}">Contacto</a>
+                </li>
+                <li>
+                    <a href="{{url_for('miembros')}}">Lenguajes</a>
+                </li>
+            </ul>
+        <hr/>
+
+        <section id="content">
+            {% block contendio%} {% endblock %}
+        </section>
+    
+    </body>
+</html>

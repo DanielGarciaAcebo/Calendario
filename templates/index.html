@@ -1,0 +1,13 @@
+{% extends "indexLayout.html" %}
+
+{% block title %} index calendario {% endblock %}
+
+{% block content %}
+        <table>
+
+                <td><a href="{{url_for('login')}}">Iniciar sesion</a></td>
+
+                <td><a href="{{url_for('register')}}" >Registrarse</a></td>
+
+        </table>
+{% endblock %}

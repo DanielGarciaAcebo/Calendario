@@ -1,0 +1,42 @@
+<% extends "layout.html" %}
+
+    {% block title %} calendario {% endblock %}
+
+        <table>
+            <tr>
+                <td>
+                   <p>Nombre: {% user.name %}</p>
+                </td>
+                <td>
+                    <p>Apellidos: {% user.surname %}</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Correo: {% user.email %} </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Telefono: {% user.numberTf %} </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                   <p>Empresa: {% user.company %}</p>
+                </td>
+                <td>
+                    <p>Tipo de Empresa: {% user.action %}</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Direccion: {% user.direction %} </p>
+                </td>
+            </tr>
+
+        </table>
+
+    {% block content %}
+
+{% endblock %}

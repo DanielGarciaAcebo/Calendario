@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+    {% block title %} Notas{% endblock %}
+    {% block content %}
+        <h1>Notas</h1>
+        {% for  %}
+
+
+        <form method="POST" >
+            {% from "_macro.html" import showForms %}
+                {{ showForms(form) }}
+        </form>
+
+    {% endblock %}

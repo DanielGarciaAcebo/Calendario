@@ -2,12 +2,24 @@
     {% block title %} Notas{% endblock %}
     {% block content %}
         <h1>Notas</h1>
-        {% for  %}
-
-
-        <form method="POST" >
-            {% from "_macro.html" import showForms %}
-                {{ showForms(form) }}
-        </form>
-
+        <table>
+            <tr>
+                <td>Nombre</td>
+                <td>Descripcion</td>
+                <td>Fecha</td>
+                <td>Editar</td>
+                <td>Eliminar</td>
+            </tr>
+            {% if tasks %}
+                {% for task in tasks %}
+                    <tr>
+                        <td> {{ task.name }} </td>
+                        <td> {{ task.description }} </td>
+                        <td> {{ task.fecha }} </td>
+                        <td> <input type="radio" name="edit" value="{{ task.id }}"> </td>
+                        <td> <input type="radio" name="eliminate" value="{{ task.id }}"> </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
     {% endblock %}

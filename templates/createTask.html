@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %} Crear Notas{% endblock %}
+    {% block content %}
+        {% if task %}
+            <form method="POST" >
+                <table>
+                    <tr>
+                        <td> Nombre de la Nota </td>
+                        <td><input id="nameTask" value="{{ nombre.task }}"></td>
+                    </tr>
+                    <tr>
+                        <td> Descripcion de la nota </td>
+                        <td><input id="descriptionTask" value="{{ descripcion.task }}"></td>
+                    </tr>
+                </table>
+            </form>
+        {% else %}
+            <form method="POST" >
+                {% from "_macro.html" import showForms %}
+                    {{ showForms(form) }}
+            </form>
+        {% endif %}
+    {% endblock %}

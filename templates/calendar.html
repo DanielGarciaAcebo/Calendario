@@ -1,21 +1,18 @@
 {% extends "layout.html" %}
 
 {% block title %} calendario {% endblock %}
-    {% block head %}
-        <div class =header>
+    <div class="header">
             <input type="button" class="header-button" value="&lt;" onclick="window.location='{{ previous_month_link }}'" title=" Mes anterior ">
             <input type="button" class="header-button" value="&lt;" onclick="window.location='{{ next_month_link }}'" title=" Mes posterior ">
             <div class=" black-too-current ">
                 {{month-name}} {{year}}
             </div>
-<!--            {% if month != current_month or year != current_year %}-->
-<!--                <div class="back-to-current">-->
-<!--                    <a href="/{{ calendar_id }}/">back to current</a>-->
-<!--                </div>-->
-<!--            {% endif %}-->
-        </div>
-    {% endblock %}
-
+            {% if month != current_month or year != current_year %}
+                <div class="back-to-current">
+                    <a href="/{{ calendar_id }}/">back to current</a>
+                </div>
+            {% endif %}
+    </div>
 {% block content %}
     <div id="calendar">
         <ul class="calendar" id="calendar">

@@ -17,20 +17,21 @@ def login(mail, name, password):
             User(name, id, mail)
 
 # register
-def register(name,surname,mail,password,company,sector,cityHall):
+def register(name,surname,number,email,password,company,companyName,cityHall):
     cursor = main.mysql.connection.cursor()
 
     try:
-        resgister= cursor.execute(f"INSERT IN TO USERS ")
-
+        cursor.execute(f"INSERT IN TO USERS (NAME, SURNAME, PASS, EMAIL, NUMBERTF, COMP) VALUES (name, surname, password, email, number, company)")
+        cursor.execute(f"INSERT IN TO USERS (NAME, CITYHALL, COMPANYTYPE) VALUES ()")
+        cursor.connection.commit()
 
     except:
-
+        cursor.connection.commit()
         return ""
 
 # Utilities
 class User(UserMixin):
-    def __init__(self,name,id,mail):
+    def __init__(self, name, id, mail):
         self.id = id
         self.name = name
         self.mail = mail

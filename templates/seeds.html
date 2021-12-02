@@ -1,10 +1,9 @@
 {% extends "layout.html" %}
 
-    {% block title %} calendario {% endblock %}
+    {% block title %} seeds {% endblock %}
         <table>
             {% for seed in seeds%}
                 <tr>
-
                     <td>
                         {% seed.name %}
                     </td>
@@ -24,13 +23,13 @@
                         {% seed.description %}
                     </td>
                     <td>
-                        <form>
-                            <input type="checkbox" id="{% seed.id %}" name="show"> Mostrar en el Calendario
-                        </form>
+                        <input type="checkbox" name="show" id="show" value="{{ seed.id }}">
                     </td>
-
                 </tr>
             {%endfor%}
+            <tr>
+                <td><a href="{{ url_for('showSeeds') }}" >Mostrar semillas</a></td>
+            </tr>
         </table>
 
     {% block content %}

@@ -1,34 +1,34 @@
 # imports
 import flask
 from flask import Flask, redirect, render_template, request, flash, url_for, current_app, abort
-from datetime import datetime,date,timedelta
+from datetime import datetime, date, timedelta
 from flask_mysqldb import MySQL
 from flask_login import login_required
-import gregorian_calendar
-from gregorian_calendar import  GregorianCalendar
+from gregorian_calendar import GregorianCalendar
 from werkzeug.wrappers import Response
 from typing import List, Optional, Tuple, cast  # noqa: F401
 
 # own imports
 import auth
 import forms
+import db
 
 # definition of app
 app = Flask(__name__)
 mysql = MySQL(app)
-#auth.LoginManager.init_app(app)
+# auth.LoginManager.init_app(app)
 
 
 # connect DB
 app.config["MYSQL_HOST"] = "localhost"
 app.config["MYSQL_USER"] = "root"
-app.config["MYSQL_PASSWORD"] = "root "
+app.config["MYSQL_PASSWORD"] = ""
 app.config["MYSQL_DB"] = "Calendario"
 
 # secret key
 app.secret_key = "VCGwYo8Kjr"
 
-#---------------------Global variables ---------------------
+# ---------------------Global variables ---------------------
 
 SESSION_ID = "sid"
 
@@ -36,8 +36,8 @@ SESSION_ID = "sid"
 WEEK_START_DAY_MONDAY = 0
 WEEK_START_DAY_SUNDAY = 6
 
-#---------------------Global variables ---------------------
 
+# ---------------------Global variables ---------------------
 
 
 # paginas de errores
@@ -59,16 +59,17 @@ def date_now():
 def index():
     return render_template("index.html")
 
-#Login and registrer
+
+# Login and registrer
 @app.route("/login")
 @app.route("/login", methods=["POST,GET"])
 def login():
     form = forms.login(request.form)
     if request.method == "POST" and form.validate():
-         print(form.name.data)
-         auth.login(form.mail.data, form.name.data, form.password.data)
-         sentece = "Ha iniciado correctamente"
-         return redirect(url_for("calendar"))
+        print(form.name.data)
+        auth.login(form.mail.data, form.name.data, form.password.data)
+        sentece = "Ha iniciado correctamente"
+        return redirect(url_for("calendar"))
     else:
         return render_template("login.html", form=form)
 
@@ -80,17 +81,15 @@ def register():
     if request.method == "POST" and form.validate():
         print(form.name.data)
         auth.register(form.name.data, form.surname.data,
-                      form.mail.data, form.password.data,
-                      form.company.data, form.sector.data,
+                      form.number.data, form.email.data,
+                      form.password.data, form.company.data,
                       form.cityHall.data)
-        sentece = "Se ha registrado correctamente"
         return redirect(url_for("calendar"))
     else:
         return render_template("register.html", form=form)
 
 
 # Calendar
-
 @app.route("/calendar")
 # @login_required
 def calendar(calendar_id: str) -> Response:
@@ -102,17 +101,7 @@ def calendar(calendar_id: str) -> Response:
     month = int(request.args.get("m", current_month))
     month = max(min(month, 12), 1)
     month_name = GregorianCalendar.MONTH_NAMES[month - 1]
-
-    if current_app.config["HIDE_PAST_TASKS"]:
-        view_past_tasks = False
-    else:
-        view_past_tasks = request.cookies.get("ViewPastTasks", "1") == "1"
-
-    # calendar_data = CalendarData(current_app.config["DATA_FOLDER"], current_app.config["WEEK_STARTING_DAY"])
-    # try:
-    #     data = calendar_data.load_calendar(calendar_id)
-    # except FileNotFoundError:
-    #     abort(404)
+    task = db.taks(id)
 
     if current_app.config["WEEK_STARTING_DAY"] == WEEK_START_DAY_MONDAY:
         weekdays_headers = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
@@ -133,11 +122,11 @@ def calendar(calendar_id: str) -> Response:
             month_days=GregorianCalendar.month_days(year, month),
             previous_month_link=previous_month_link(year, month),
             next_month_link=next_month_link(year, month),
-            base_url=current_app.config["BASE_URL"],
-            display_view_past_button=current_app.config["SHOW_VIEW_PAST_BUTTON"],
             weekdays_headers=weekdays_headers,
+            task=task
         ),
     )
+
 
 def previous_month_link(year: int, month: int) -> str:
     month, year = GregorianCalendar.previous_month_and_year(year=year, month=month)
@@ -147,6 +136,7 @@ def previous_month_link(year: int, month: int) -> str:
         else "?y={}&m={}".format(year, month)
     )
 
+
 def next_month_link(year: int, month: int) -> str:
     month, year = GregorianCalendar.next_month_and_year(year=year, month=month)
     return (
@@ -155,11 +145,14 @@ def next_month_link(year: int, month: int) -> str:
         else "?y={}&m={}".format(year, month)
     )
 
+
 # Perfil
 @app.route("/calendar/perfil")
 # @login_required
 def profile():
-    return ""
+    id = auth.get_user()
+    profile = db.profile(id)
+    return render_template("profile.html", user=profile)
 
 
 # Contactos
@@ -169,14 +162,22 @@ def contacts():
     return ""
 
 
-# Contactos
-@app.route("/calendar/grow")
+# seeds
+@app.route("/calendar/seeds")
 # @login_required
-def grow():
-    return ""
+def seeds():
+    seeds = db.grow()
+    return render_template("seeds.html", seeds=seeds)
 
+
+@app.route("/calendar/grow")
+@app.route("/calendar/grow", methods=["POST,GET"])
+# @login_required
+def showSeeds():
+    show = request.form
+    db.showSeeds(seeds.data)
+    return render_template(calendar, seeds=show, task=task)
 
 # Creation for debug
 if __name__ == "__main__":
-    app.run(debug = True)
-
+    app.run(debug=True)

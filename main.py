@@ -1,10 +1,12 @@
 # imports
+import html
 import flask
 
 from flask import Flask, redirect, render_template, request, flash, url_for, current_app, abort
 from datetime import datetime, date, time, timedelta
 import calendar
 import pymysql
+import dayMonth
 from flask_login import login_required
 from werkzeug.wrappers import Response
 from typing import List, Optional, Tuple, cast  # noqa: F401
@@ -46,15 +48,6 @@ WEEK_START_DAY_SUNDAY = 6
 def page_no_found(e):
     return render_template("404.html")
 # ------------------------------------------------------------------------------------
-
-# context processors
-@app.context_processor
-def date_now():
-    return {
-        "now": datetime.utcnow()
-    }
-
-# ------------------------------------------------------------------------------------
 # rutas
 @app.route("/")
 def index():
@@ -95,10 +88,13 @@ def register():
 @app.route("/calendario/")
 # @login_required
 def calendario():
-    cal = calendar.HTMLCalendar(firstweekday=0)
-    month, year = 9, 2021
-    print(cal.formatmonth(year, month))
-    return render_template("calendar.html")
+    year = datetime.today().strftime("%Y")
+    month = datetime.today().strftime("%m")
+    mes = TraslateDate.month(month)
+    day = datetime.today().strftime("%a")
+    dia = TraslateDate.day(day)
+    print(year, month, "-", mes, day, "-", dia)
+    return render_template("calendar.html", mes=mes, year=year)
 
 # ------------------------------------------------------------------------------------
 

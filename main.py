@@ -92,7 +92,7 @@ def register():
 
 # ------------------------------------------------------------------------------------
 # Calendar
-@app.route("/calendario")
+@app.route("/calendario/")
 # @login_required
 def calendario():
     cal = calendar.HTMLCalendar(firstweekday=0)

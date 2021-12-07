@@ -3,29 +3,28 @@
 {% block title %} calendario {% endblock %}
 
 {% block contenido %}
-
-{#   <table>#}
-{#       <tr>#}
-{#           <th>Lunes</th>#}
-{#           <th>Martes</th>#}
-{#           <th>Miercoles</th>#}
-{#           <th>Jueves</th>#}
-{#           <th>Viernes</th>#}
-{#           <th>Sabado</th>#}
-{#           <th>Domingo</th>#}
-{#       </tr>#}
-{#        {% for week in weeks %}#}
-{#        <tr>#}
-{#            {% for day in dies %}#}
-{#                <tr></tr>#}
-{#                <tr></tr>#}
-{#                <tr></tr>#}
-{#                <tr></tr>#}
-{#                <tr></tr>#}
-{#                <tr></tr>#}
-{#                <tr></tr>#}
-{#            {% endfor %}#}
-{#        </tr>#}
-{#        {% endfor %}#}
-{#   </table>#}
+   <table>
+       <tr>
+           <th>Lunes</th>
+           <th>Martes</th>
+           <th>Miercoles</th>
+           <th>Jueves</th>
+           <th>Viernes</th>
+           <th>Sabado</th>
+           <th>Domingo</th>
+       </tr>
+        {% for week in weeks %}
+        <tr>
+            {% for day in dies %}
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+   </table>
 {% endblock %}

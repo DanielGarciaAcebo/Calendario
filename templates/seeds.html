@@ -1,37 +1,41 @@
 {% extends "layout.html" %}
 
-    {% block title %} seeds {% endblock %}
+    {% block title %} Seeds {% endblock %}
+    {% block contenido %}
         <table>
-            {% for seed in seeds%}
+            <tr>
+                <th>Nombre</th>
+                <th>Tiempo optimo para recolecta</th>
+                <th>Tiempo de crecimiento</th>
+                <th>Fecha de recojida</th>
+                <th>Fecha de plantacion</th>
+                <th>Descripcion</th>
+            </tr>
+             {% for seed in seeds %}
                 <tr>
                     <td>
-                        {% seed.name %}
+                        {{seed[1]}}
                     </td>
                     <td>
-                        {% seed.start_day %}
+                        {{seed[3]}}
                     </td>
                     <td>
-                        {% seed.end_day %}
+                        {{seed[4]}}
                     </td>
                     <td>
-                        {% seed.time_collection %}
+                        {{seed[5]}}
                     </td>
                     <td>
-                        {% seed.day_time %}
+                        {{seed[6]}}
                     </td>
                     <td>
-                        {% seed.description %}
-                    </td>
-                    <td>
-                        <input type="checkbox" name="show" id="show" value="{{ seed.id }}">
+                        {{seed[2]}}
                     </td>
                 </tr>
-            {%endfor%}
+         {%endfor%}
             <tr>
-                <td><a href="{{ url_for('showSeeds') }}" >Mostrar semillas</a></td>
+                <td><a href="{{ url_for('calendario') }}">Volver al Calendario</a></td>
             </tr>
         </table>
 
-    {% block content %}
-
-{% endblock %}
+    {% endblock %}

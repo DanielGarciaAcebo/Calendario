@@ -6,13 +6,13 @@
 
     <h1> Inicio de Sesion</h1>
 
-    <form method="POST" >
+    <form method="POST" name="login">
         {% from "_macro.html" import showForms %}
             {{ showForms(form) }}
-        <button type="submit">Entrar</button>
-        <button type="reset">Volver a cargar</button>
-        <button type="button">Volver</button>
-        <button type="button">registrarse</button>
-
+        <button><a href="{{url_for('login', method='POST')}}">Iniciar sesion</a></button>
+        <br/>
+        <br/>
     </form>
+    <button><a href="{{url_for('index')}}">Volver Atras</a></button>
+    <button><a href="{{url_for('register')}}" >Registrarse</a></button>
 {% endblock %}

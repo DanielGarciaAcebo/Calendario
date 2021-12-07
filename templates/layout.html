@@ -13,21 +13,21 @@
         <hr/>
             <ul>
                 <li>
-                    <a href="{{url_for('index')}}">Inicio</a>
+                    <button><a href="{{url_for('calendario')}}">Inicio</a></button>
+                </li>
+                 <li>
+                    <button><a href="{{url_for('companies')}}">Contactos</a></button>
                 </li>
                 <li>
-                    <a href="{{url_for('incidencias')}}">Informacion</a>
+                    <button><a href="{{url_for('profile')}}">perfil</a></button>
                 </li>
                 <li>
-                    <a href="{{url_for('contactos')}}">Contacto</a>
-                </li>
-                <li>
-                    <a href="{{url_for('miembros')}}">Lenguajes</a>
+                    <button><a href="{{url_for('seeds')}}">semillas</a></button>
                 </li>
             </ul>
         <hr/>
         <section id="content">
-            {% block contendio%} {% endblock %}
+            {% block contenido%} {% endblock %}
         </section>
     
     </body>

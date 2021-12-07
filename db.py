@@ -7,52 +7,75 @@ import main
 
 #def of profile
 def profile(id):
-    cursor = main.mysql.connection.cursor()
-    usuarios = cursor.execute(f"SELECT * FROM USERS WHERE ID=id ")
-    cursor.connection.commit()
+    conexion = main.conect()
+    with conexion.cursor() as cursor:
+        usuarios = cursor.execute('''SELECT * FROM USER WHERE ID=id ''')
+    conexion.commit()
+    conexion.close()
     return usuarios
 
 def updateProfile():
-    cursor = main.mysql.connection.cursor()
-    cursor.execute(f"UPDATE")
-    cursor.connection.commit()
+    conexion = main.conect()
+    with conexion.cursor() as cursor:
+        cursor.execute(f"UPDATE")
+    conexion.commit()
+    conexion.close()
 
 
 # Def of grow and seeds
 def grow():
-    cursor = main.mysql.connection.cursor()
-    seed = cursor.execute(f"SELECT * FROM SEEDS ")
-    cursor.connection.commit()
-    return seed
-
-def showSeeds(seeds):
-    cursor = main.mysql.connection.cursor()
-    cursor.execute(f"UPDATE")
-    cursor.connection.commit()
-    cursor = main.mysql.connection.cursor()
-    dates = cursor.execute(f"SELECT * FROM SEEDS WHERE SHOW= TRUE ")
-    cursor.connection.commit()
-    return dates
+    conexion = main.conect()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT SEED_ID, "
+                       "NAME, DESCRIPTION, "
+                       "DAYTIME,DAYCOLLECTION, "
+                       "DATE_FORMAT(FINALDAY,'%d-%m'),"
+                       "DATE_FORMAT(STARTDAY, '%d-%m')"
+                       " FROM SEED")
+        seeds = cursor.fetchall()
+    conexion.commit()
+    conexion.close()
+    return seeds
 
 
 #def of contacts
-def contacts(id):
-    cursor = main.mysql.connection.cursor()
-    contacts = cursor.execute(f"SELECT * FROM USERS WHERE COMPANY_TYPE=ID ")
-    cursor.connection.commit()
+def companies():
+    conexion = main.conect()
+    with conexion.cursor() as cursor:
+        cursor.execute(f"SELECT * FROM TYPE_COMPANY WHERE COMPANY_TYPE != 0")
+        companies = cursor.fetchall()
+    conexion.commit()
+    conexion.close()
+    return companies
+
+def contacts(companyID):
+    conexion = main.conect()
+    with conexion.cursor() as cursor:
+        cursor.execute(f"SELECT COMPANY_ID, NAME, CITYHALL  FROM company WHERE COMPANY_ID = %s", (companyID,))
+        contacts = cursor.fetchall()
+    conexion.commit()
+    conexion.close()
     return contacts
 
-def conpanyContacts(companyID,contactID):
-    cursor = main.mysql.connection.cursor()
-    contacts = cursor.execute(f"SELECT * FROM USERS WHERE COMPANY_TYPE=ID ")
-    cursor.connection.commit()
+def contact(contactID):
+    conexion = main.conect()
+    with conexion.cursor() as cursor:
+        cursor.execute(f"SELECT NAME, SURNAME, EMAIL, NUMBERTF FROM USERS WHERE COMPANY_TYPE = %s", (contactID,) )
+        contacts = cursor.fetchall()
+    conexion.connection.commit()
+    conexion.close()
     return contacts
+
+
 
 #def of task
 def taks(ID):
-    cursor = main.mysql.connection.cursor()
-    tasks = cursor.execute(f"SELECT * FROM TASK WHERE ID_CLIENTE=ID ")
-    cursor.connection.commit()
+    conexion = main.conect()
+    with conexion.cursor() as cursor:
+        cursor.execute(f"SELECT * FROM TASK WHERE ID_CLIENTE=ID ")
+        tasks = cursor.fetchall()
+    conexion.commit()
+    conexion.close()
     return tasks
 
 

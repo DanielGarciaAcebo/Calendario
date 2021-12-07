@@ -1,63 +1,31 @@
 {% extends "layout.html" %}
 
 {% block title %} calendario {% endblock %}
-    <div class="header">
-            <input type="button" class="header-button" value="&lt;" onclick="window.location='{{ previous_month_link }}'" title=" Mes anterior ">
-            <input type="button" class="header-button" value="&lt;" onclick="window.location='{{ next_month_link }}'" title=" Mes posterior ">
-            <div class=" black-too-current ">
-                {{month-name}} {{year}}
-            </div>
-            {% if month != current_month or year != current_year %}
-                <div class="back-to-current">
-                    <a href="/{{ calendar_id }}/">back to current</a>
-                </div>
-            {% endif %}
-    </div>
-{% block content %}
-    <div id="calendar">
-        <ul class="calendar" id="calendar">
-            {% for day in mont_days %}
-            <li
-                {% if day.month != month %}
-                    class = "day othermonth"
-                {% else %}
-                    class="day"
-                {% endif %}
-                data-year="{{ day.year }}"
-                data-month="{{ day.month }}"
-                data-day=" {{day.day}} ">
-                {% if day.day == current_day and day.month == current_month and day.year == current_year %}
-                        <span class="daynumber-current">
-                {% else %}
-                        <span class="daynumber">
-                {% endif %}
-                {{ day.day }}</span>
-                <ul class="tasks">
-                    {% if day.day == task.day %}
-                        task.name
-                    {% endif %}
-                </ul>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div id="tasks">
-        {% if task.id %}
-            <ul class="task" id="tak">
-                <li>
-                    {% for task in tasks %}
-                    <table>
-                        <tr>
-                            <td>task.name</td>
-                            <td>task.day</td>
-                        </tr>
-                        <tr>
-                            <td>task.description</td>
-                        </tr>
-                    </table>
-                    {% endfor %}
-                </li>
-            </ul>
-        {% endif %}
-    </div>
+
+{% block contenido %}
+
+{#   <table>#}
+{#       <tr>#}
+{#           <th>Lunes</th>#}
+{#           <th>Martes</th>#}
+{#           <th>Miercoles</th>#}
+{#           <th>Jueves</th>#}
+{#           <th>Viernes</th>#}
+{#           <th>Sabado</th>#}
+{#           <th>Domingo</th>#}
+{#       </tr>#}
+{#        {% for week in weeks %}#}
+{#        <tr>#}
+{#            {% for day in dies %}#}
+{#                <tr></tr>#}
+{#                <tr></tr>#}
+{#                <tr></tr>#}
+{#                <tr></tr>#}
+{#                <tr></tr>#}
+{#                <tr></tr>#}
+{#                <tr></tr>#}
+{#            {% endfor %}#}
+{#        </tr>#}
+{#        {% endfor %}#}
+{#   </table>#}
 {% endblock %}

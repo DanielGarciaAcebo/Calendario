@@ -6,7 +6,6 @@ from flask import Flask, redirect, render_template, request, flash, url_for, cur
 from datetime import datetime, date, time, timedelta
 import calendar
 import pymysql
-import dayMonth
 from flask_login import login_required
 from werkzeug.wrappers import Response
 from typing import List, Optional, Tuple, cast  # noqa: F401
@@ -15,7 +14,9 @@ from typing import List, Optional, Tuple, cast  # noqa: F401
 import auth
 import forms
 import db
-import TraslateDate
+from gregorian_calendar import  GregorianCalendar
+from  calendar_data import CalendarData
+import constants
 
 # definition of app
 app = Flask(__name__)
@@ -30,14 +31,6 @@ def conect():
 
 # secret key
 app.secret_key = "VCGwYo8Kjr"
-
-# ---------------------Global variables ---------------------
-
-SESSION_ID = "SessionId"
-
-# Starts day, monday and Sunday
-WEEK_START_DAY_MONDAY = 0
-WEEK_START_DAY_SUNDAY = 6
 
 
 # ---------------------Global variables ---------------------
@@ -87,14 +80,50 @@ def register():
 # Calendar
 @app.route("/calendario/")
 # @login_required
-def calendario():
-    year = datetime.today().strftime("%Y")
-    month = datetime.today().strftime("%m")
-    mes = TraslateDate.month(month)
-    day = datetime.today().strftime("%a")
-    dia = TraslateDate.day(day)
-    print(year, month, "-", mes, day, "-", dia)
-    return render_template("calendar.html", mes=mes, year=year)
+def calendario() -> Response:
+    current_day, current_month, current_year = GregorianCalendar.current_date()
+    year = int(request.args.get("y", current_year))
+    year = max(min(year, 9999), 1)
+    month = int(request.args.get("m", current_month))
+    month = max(min(month, 12), 1)
+    month_name = GregorianCalendar.MONTH_NAMES[month - 1]
+
+    weekdays_headers = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
+
+    return cast(
+        Response,
+        render_template(
+            "calendar.html",
+            year=year,
+            month=month,
+            month_name=month_name,
+            current_year=current_year,
+            current_month=current_month,
+            current_day=current_day,
+            month_days=GregorianCalendar.month_days(year, month),
+            previous_month_link=previous_month_link(year, month),
+            next_month_link=next_month_link(year, month),
+
+            weekdays_headers=weekdays_headers,
+        ),
+    )
+
+def previous_month_link(year: int, month: int) -> str:
+    month, year = GregorianCalendar.previous_month_and_year(year=year, month=month)
+    return (
+        ""
+        if year < 1 or year > 9999
+        else "?y={}&m={}".format(year, month)
+    )
+
+def next_month_link(year: int, month: int) -> str:
+    month, year = GregorianCalendar.next_month_and_year(year=year, month=month)
+    return (
+        ""
+        if year < 1 or year > 9999
+        else "?y={}&m={}".format(year, month)
+    )
+
 
 # ------------------------------------------------------------------------------------
 

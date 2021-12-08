@@ -1,18 +1,11 @@
 # imports
-import MySQLdb
-import flask_login
 import main
 import forms
-from ownApp import app
-from flask_login import logout_user, UserMixin, LoginManager, login_user
-from werkzeug.security import generate_password_hash
 
-# app definition
-login_manager = LoginManager(app)
-login_manager.init_app(app)
-login_manager.login_view = "login"
+# --------------------------------------------sesiones--------------------------
+session = main.session
 
-
+# ---------------------------------login-----------------------------------------
 def login(mail, name, password):
     conexion = main.conect()
     with conexion.cursor() as cursor:
@@ -23,13 +16,13 @@ def login(mail, name, password):
     for usuario in usuarios:
         if usuario[1] == name and usuario[2] == mail and usuario[3] == password:
             id = usuario[0]
-            # creamos usuario
-            user = User(str(id), str(name), str(mail), str(password))
-            # Dejamos el usuario logeado
-            login_user(user, remember=True)
+            # Creation session
+            session["user_id"] = id
+            session["user_name"] = name
+            session["user_pass"] = password
 
 
-# register
+# ------------------------------------------register--------------------------------------
 def register(name, surname, number, email, password, companyType, companyName, cityHall):
     conexion = main.conect()
     try:
@@ -53,43 +46,6 @@ def register(name, surname, number, email, password, companyType, companyName, c
 
 # logout
 def logout():
-    logout_user()
-
-
-# user instance
-class User(UserMixin):
-    def __init__(self, id, username, mail, userpass, is_admin=False):
-        self.id = id
-        self.name = username
-        self.mail = mail
-        self.password = generate_password_hash(userpass)
-        self.is_admin = is_admin
-
-
-@login_manager.user_loader
-def load_user(id):
-    conexion = main.conect()
-    with conexion.cursor() as cursor:
-        cursor.execute(f"SELECT USER_ID, NAME, EMAIL, PASS FROM USER;")
-        usuarios = cursor.fetchall()
-    conexion.commit()
-    conexion.close()
-    for user in usuarios:
-        if user[0]=="id":
-            return user
-    return None
-
-
-@property
-def is_active(self):
-    return True
-
-
-@property
-def is_authenticated(self):
-    return True
-
-
-@property
-def is_anonymous(self):
-    return False
+   session.pop("user_id")
+   session.pop("user_name")
+   session.pop("user_pass")

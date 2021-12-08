@@ -63,31 +63,31 @@ INSERT INTO SEED (SEED_ID, NAME, DESCRIPTION, DAYTIME, DAYCOLLECTION, FINALDAY, 
 INSERT INTO SEED (SEED_ID, NAME, DESCRIPTION, DAYTIME, DAYCOLLECTION, FINALDAY, STARTDAY) VALUES (4, "Maiz", "Cereal el cual es uso exclusivo animal, es la base vitaminica mas importante", "Semana humeda sin llover", "80", "0000-06-25", "0000-03-25");
 
 -- Creation of admin user for control
-INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("admin", "admin", "adminSurname" , "admin@admin.com", 000000000, 0, 0);
+INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("admin", "admin", "adminSurname" , "admin@admin.com", 000000000, 1, 1);
 INSERT INTO COMPANY ( COMPANY_ID, NAME, CITYHALL, COMPANYTYPE) VALUES( 0, "company's admin", "admin direction", 0);
 
 
 -- Creation 8 users and 8 companies for tests
-INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("user1", "user1", "user1Surname" , "user1@user1.com", 111111111, 1, 1);
+INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("user1", "user1", "user1Surname" , "user1@user1.com", 111111111, 2, 2);
 INSERT INTO COMPANY ( COMPANY_ID, NAME, CITYHALL, COMPANYTYPE) VALUES( 1, "company's user1", "user1 direction", 1);
 
-INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("user2", "user2", "user2Surname" , "user2@user2.com", 222222222, 2, 2);
+INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("user2", "user2", "user2Surname" , "user2@user2.com", 222222222, 3, 3);
 INSERT INTO COMPANY ( COMPANY_ID, NAME, CITYHALL, COMPANYTYPE) VALUES( 2, "company's user2", "admin direction", 1);
 
-INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("user3", "user3", "user3Surname" , "user3@user3.com", 333333333, 3, 3);
+INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("user3", "user3", "user3Surname" , "user3@user3.com", 333333333, 4, 4);
 INSERT INTO COMPANY ( COMPANY_ID, NAME, CITYHALL, COMPANYTYPE) VALUES( 3, "company's user3", "user3 direction", 2);
 
-INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("user4", "user4", "user4Surname" , "user4@user4.com", 444444444, 4, 4);
+INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("user4", "user4", "user4Surname" , "user4@user4.com", 444444444, 5, 5);
 INSERT INTO COMPANY ( COMPANY_ID, NAME, CITYHALL, COMPANYTYPE) VALUES( 4, "company's user4", "user4 direction", 2);
 
-INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("user5", "user5", "user5Surname" , "user5@user5.com", 555555555, 5, 5);
+INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("user5", "user5", "user5Surname" , "user5@user5.com", 555555555, 6, 6);
 INSERT INTO COMPANY ( COMPANY_ID, NAME, CITYHALL, COMPANYTYPE) VALUES( 5, "company's user5", "user5 direction", 3);
 
-INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("user6", "user6", "user6Surname" , "user6@user6.com", 666666666, 6, 6);
+INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("user6", "user6", "user6Surname" , "user6@user6.com", 666666666, 7, 7);
 INSERT INTO COMPANY ( COMPANY_ID, NAME, CITYHALL, COMPANYTYPE) VALUES( 6, "company's user6", "user6 direction", 3);
 
-INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("user7", "user7", "user7Surname" , "user7@user7.com", 777777777, 7, 7);
+INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("user7", "user7", "user7Surname" , "user7@user7.com", 777777777, 8, 8);
 INSERT INTO COMPANY ( COMPANY_ID, NAME, CITYHALL, COMPANYTYPE) VALUES( 7, "company's user7", "user7 direction", 4);
 
-INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("user8", "user8", "user8Surname" , "user8@user8.com", 888888888, 8, 8);
+INSERT INTO USER (NAME, PASS ,SURNAME, EMAIL, NUMBERTF, COMPANY, TASK_ID) VALUES("user8", "user8", "user8Surname" , "user8@user8.com", 888888888, 9, 9);
 INSERT INTO COMPANY ( COMPANY_ID, NAME, CITYHALL, COMPANYTYPE) VALUES( 8, "company's user8", "user8 direction", 4);

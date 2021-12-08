@@ -90,15 +90,15 @@ def set_task( userID, name, comment, date ):
 def update_task(noteID, userID, name, comment, date ):
     conexion = main.conect()
     with conexion.cursor() as cursor:
-        cursor.execute(f"UPDATE (NAME,COMMENT,DATE,USER) FROM TASK WHERE NOTES_ID=%s", (name, comment, date, userID,), (noteID,))
+        cursor.execute(f"UPDATE  (NAME,COMMENT,DATE,USER) FROM TASK WHERE NOTES_ID=%s", (name, comment, date, userID,), (noteID,))
         cursor.fetchall()
     conexion.commit()
     conexion.close()
 
-def delete_task(noteID):
+def delete_task(userID, taskID):
     conexion = main.conect()
     with conexion.cursor() as cursor:
-        cursor.execute(f"DELETE FROM TASK WHERE NOTES_ID=%s", (noteID,))
+        cursor.execute(f"DELETE FROM TASK WHERE NOTES_ID=%s AND USER= %s", (taskID, userID))
         cursor.fetchall()
     conexion.commit()
     conexion.close()

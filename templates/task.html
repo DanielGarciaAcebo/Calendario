@@ -2,7 +2,7 @@
     {% block title %} Notas{% endblock %}
     {% block content %}
         <h1>Notas</h1>
-        <form>
+        <form method="post">
         <table>
             <tr>
                 <td>Nombre</td>
@@ -17,8 +17,8 @@
                         <td> {{ task[1] }} </td>
                         <td> {{ task[2] }} </td>
                         <td> {{ task[3] }} </td>
-                        <td> <input type="radio" name="edit" value="{{ task[0] }}"> </td>
-                        <td> <input type="radio" name="eliminate" value="{{ task[0] }}"> </td>
+                        <td> <input type="radio" id="edit" name="edit" value="{{ task[0] }}"> </td>
+                        <td> <input type="radio" id="eliminate" name="eliminate" value="{{ task[0] }}"> </td>
                     </tr>
                 {% endfor %}
             {% endif %}

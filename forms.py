@@ -14,7 +14,7 @@ class login(Form):
     name = StringField("Nombre",
                        [
                            DataRequired(message="Necesita poner un nombre"),
-                           validators.length(min=4, max=25, message="Ingrese un nombre valido")
+                           validators.length(min=1, max=25, message="Ingrese un nombre valido")
                        ])
 
     email = EmailField("Email",
@@ -35,13 +35,13 @@ class register(Form):
     name = StringField("Name",
                        [
                            DataRequired(message="Necesita poner un nombre"),
-                           validators.length(min=4, max=25, message="Ingrese un nombre valido")
+                           validators.length(min=1, max=25, message="Ingrese un nombre valido")
                        ])
 
     surname = StringField("Apellidos",
                           [
                               DataRequired(message="Necesita poner un nombre"),
-                              validators.length(min=4, max=25, message="Ingrese apellidos validos")
+                              validators.length(min=1, max=25, message="Ingrese apellidos validos")
                           ])
     number = IntegerField("Numero de telefono",
                           [

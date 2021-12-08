@@ -1,12 +1,9 @@
-# imports
-from typing import List, Optional, Tuple, cast  # noqa: F401
-
 # own imports
 import main
 
 
 #def of profile
-def profile(id):
+def get_profile(id):
     conexion = main.conect()
     with conexion.cursor() as cursor:
         usuarios = cursor.execute('''SELECT * FROM USER WHERE ID=id ''')
@@ -20,7 +17,7 @@ def updateProfile():
         cursor.execute(f"UPDATE")
     conexion.commit()
     conexion.close()
-
+# ----------------------------------------------------------------------------------------------------
 
 # Def of grow and seeds
 def grow():
@@ -37,7 +34,7 @@ def grow():
     conexion.close()
     return seeds
 
-
+# ------------------------------------------------------------------------------------------------------
 #def of contacts
 def companies():
     conexion = main.conect()
@@ -67,16 +64,44 @@ def contact(contactID):
     return contacts
 
 
-
+# ---------------------------------------------------------------------------------------------
 #def of task
-def taks(ID):
+def get_taks(ID):
     conexion = main.conect()
     with conexion.cursor() as cursor:
-        cursor.execute(f"SELECT * FROM TASK WHERE ID_CLIENTE=ID ")
+        cursor.execute(f"SELECT NOTES_ID,  NAME, COMMENT, DATE_FORMAT(DATE,'%d-%m-%y') "
+                       f"FROM TASK WHERE USER=%s", (ID,))
         tasks = cursor.fetchall()
     conexion.commit()
     conexion.close()
     return tasks
+
+def set_task( userID, name, comment, date ):
+    conexion = main.conect()
+    with conexion.cursor() as cursor1:
+        cursor1(f"SELECT NOTES_ID +1 FROM TASK ORDER BY NOTES_ID DESC LIMIT 1")
+        noteID = cursor1.fetchone()
+    with conexion.cursor() as cursor2:
+        cursor2.execute(f"INSERT INTO TASK (NOTES_ID, NAME, COMMENT, DATE_FORMAT(DATE,'%d-%m-%y'), USER) "
+                        f"VALUES(%s,%s,%s,%s,%s)", (noteID, name, comment, date, userID))
+    conexion.commit()
+    conexion.close()
+
+def update_task(noteID, userID, name, comment, date ):
+    conexion = main.conect()
+    with conexion.cursor() as cursor:
+        cursor.execute(f"UPDATE (NAME,COMMENT,DATE,USER) FROM TASK WHERE NOTES_ID=%s", (name, comment, date, userID,), (noteID,))
+        cursor.fetchall()
+    conexion.commit()
+    conexion.close()
+
+def delete_task(noteID):
+    conexion = main.conect()
+    with conexion.cursor() as cursor:
+        cursor.execute(f"DELETE FROM TASK WHERE NOTES_ID=%s", (noteID,))
+        cursor.fetchall()
+    conexion.commit()
+    conexion.close()
 
 
 

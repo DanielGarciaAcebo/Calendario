@@ -11,21 +11,34 @@
     <body>
         <h1>Calendario Agroganadero</h1>
         <hr/>
-            <ul>
-                <li>
-                    <button><a href="{{url_for('calendario')}}">Inicio</a></button>
+            <ul class="calendar">
+                <li class="link">
+                    <button><a href="{{url_for('calendar')}}">Inicio</a></button>
                 </li>
-                 <li>
+                 <li class="link">
                     <button><a href="{{url_for('companies')}}">Contactos</a></button>
                 </li>
-                <li>
-                    <button><a href="{{url_for('profile')}}">perfil</a></button>
+                <li class="link">
+                    <button><a href="{{url_for('profile')}}">Perfil</a></button>
                 </li>
-                <li>
-                    <button><a href="{{url_for('seeds')}}">semillas</a></button>
+                <li class="link">
+                    <button><a href="{{url_for('seeds')}}">Semillas</a></button>
+                </li>
+                <li class="link">
+                    <button><a href="{{url_for('logout')}}">Cerrar Sesion</a></button>
                 </li>
             </ul>
         <hr/>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in menssages %}
+                        <div class="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </ul>
+        {% endwith %}
         <section id="content">
             {% block contenido%} {% endblock %}
         </section>

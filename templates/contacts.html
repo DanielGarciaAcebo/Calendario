@@ -10,7 +10,7 @@
                         <option value="{{company[0]}}">{{company[1]}}</option>
                     {% endfor %}
                 </select>
-                <button type="submit" ><a href="{{ url_for('contacts', method="post")}}"> buscar contactos </a></button>
+                <button type="submit" ><a href="{{ url_for('companies_contacts', method="post")}}"> buscar contactos </a></button>
             </form>
             {% if contacts %}
                 <hr/>
@@ -27,7 +27,7 @@
                         </tr>
                     {% endfor %}
                 </table>
-                <button><a href="{{ url_for('contact')}}" methods="POST"> Ponerse en contacto </a></button>
+                <button><a href="{{ url_for('companies_contacts_contact')}}" methods="POST"> Ponerse en contacto </a></button>
             {% endif %}
             {% if contact %}
                 <table>

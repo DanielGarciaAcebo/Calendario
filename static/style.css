@@ -69,16 +69,8 @@ li {
     font-size: 12px;
 }
 
-.toggle-past-events {
-    float: right;
-}
 
-.remove-task {
-    color: #F7F7F7;
-    background-color: #FF6B6B;
-    margin-right: 2px;
-    float: right;
-}
+
 
 .hide-recurrent-task {
     color: #F7F7F7;
@@ -87,19 +79,6 @@ li {
     float: right;
 }
 
-.recurrent-task {
-    color: #F7F7F7;
-    background-color: #4ECDC4;
-    margin-right: 2px;
-    float: right;
-}
-
-.edit-task {
-    color: #F7F7F7;
-    background-color: #79BD9A;
-    margin-right: 2px;
-    float: right;
-}
 
 .calendar-header {
   padding: 0;
@@ -158,10 +137,6 @@ li {
   border-bottom: 0px;
 }
 
-.task.greyed {
-    background-color:#B8B8B8 !important;
-}
-
 .othermonth {
   background-color: #F3F3F3;
   cursor: auto;
@@ -191,27 +166,6 @@ span.daynumber-current {
     color: #777774;
 }
 
-ul.tasks {
-    font-weight: 400;
-    font-size: 12px;
-    margin: 1px;
-    margin-top: 3px;
-    padding: 0;
-}
-
-ul.tasks li {
-    background-color: #444;
-    color: #FEFEFE;
-    margin-bottom: 1px;
-    padding: 1px 4px 2px 2px;
-    cursor: pointer;
-    border-radius: 2px;
-}
-
-ul.tasks li a {
-    color: #F0F0F0;
-
-}
 
 .accordion-hidden {
     height: 0;
@@ -230,11 +184,6 @@ ul.tasks li a {
     overflow: hidden;
     margin: 0;
     visibility: hidden;
-}
-
-.task-details-form label {
-    font-weight: 700;
-    margin-top: 6px;
 }
 
 #statusbar {
@@ -280,12 +229,5 @@ ul.tasks li a {
 
     .day {
         min-height: 30px;
-    }
-
-    ul.tasks li a, span.recurrent-task {
-        padding: 3px 4px 3px 4px;
-        min-width: 8px;
-        text-align: center;
-        min-height: 8px;
     }
 }

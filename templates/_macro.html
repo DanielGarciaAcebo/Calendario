@@ -6,14 +6,6 @@
                 <td>{{value(**kwargs)|safe}}</td>
             </tr>
         {% endfor %}
-        {% if values.errors %}
-        <tr>
-            <ul>
-                {% for error in values.errors %}
-                    <li>{{error}}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
         </tr>
     </table>
 {% endmacro %}

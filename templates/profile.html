@@ -1,42 +1,45 @@
-<% extends "layout.html" %}
+{% extends "layout.html" %}
 
-    {% block title %} calendario {% endblock %}
+    {% block title %} perfil {% endblock %}
 
+    {% block contenido%}
         <table>
             <tr>
                 <td>
-                   <p>Nombre: {% user.name %}</p>
+                   <p>Nombre: {{ user[1] }}</p>
                 </td>
                 <td>
-                    <p>Apellidos: {% user.surname %}</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Correo: {% user.email %} </p>
+                    <p>Apellidos: {{ user[3] }}  </p>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <p>Telefono: {% user.numberTf %} </p>
+                    <p>Correo: {{ user[4] }} </p>
                 </td>
             </tr>
             <tr>
                 <td>
-                   <p>Empresa: {% user.company %}</p>
-                </td>
-                <td>
-                    <p>Tipo de Empresa: {% user.action %}</p>
+                    <p>Telefono: {{ user[5] }} </p>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <p>Direccion: {% user.direction %} </p>
+                   <p>Empresa: {{ company[1] }}</p>
+                </td>
+                <td>
+                    <p>Tipo de Empresa: {{ typeCompany[2] }}</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Descripcion de empresa:{{ typeCompany[2] }} </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Ayuntamiento: {{ company[2] }} </p>
                 </td>
             </tr>
 
         </table>
-
-    {% block content %}
-
 {% endblock %}

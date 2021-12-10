@@ -1,23 +1,37 @@
 {% extends "layout.html" %}
 {% block title %} Crear Notas{% endblock %}
-    {% block content %}
+    {% block contenido %}
         {% if task %}
             <form method="POST" >
                 <table>
                     <tr>
-                        <td> Nombre de la Nota </td>
-                        <td><input id="nameTask" value="{{ nombre.task }}"></td>
+                        <td> <label for="nameTask"> Nombre de la Nota</label>
+                        <input id="nameTask" name="nameTask" type="text" maxlength="200" required value="{{ task[1] }}"></td>
                     </tr>
                     <tr>
-                        <td> Descripcion de la nota </td>
-                        <td><input id="descriptionTask" value="{{ descripcion.task }}"></td>
+                        <td> <label for="descriptionTask">Descripcion de la nota</label>
+                        <input id="descriptionTask" name="descriptionTask" type="text" maxlength="200" required value="{{ task[2] }}"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for ="dateTask"> Fecha de la nota</label>
+                            <input id="dateTask" name="dateTask" type="date" required value="{{ task[3] }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="submit" id="Enviar" name="Enviar" value="{{ task[0] }}">Enviar</button>
+                        </td>
                     </tr>
                 </table>
             </form>
         {% else %}
-            <form method="POST" >
-                {% from "_macro.html" import showForms %}
-                    {{ showForms(form) }}
-            </form>
+            {% if form %}
+                <form method="POST" >
+                    {% from "_macro.html" import showForms %}
+                        {{ showForms(form) }}
+                    <button type="submit"> Enviar </button>
+                </form>
+            {% endif %}
         {% endif %}
     {% endblock %}

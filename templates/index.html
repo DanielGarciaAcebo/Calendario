@@ -3,11 +3,12 @@
 {% block title %} index calendario {% endblock %}
 
 {% block content %}
-        <table>
-
-                <td><button><a href="{{url_for('login')}}">Iniciar sesion</a></button></td>
-
-                <td><button><a href="{{url_for('register')}}" >Registrarse</a></button></td>
-
+        <table class="index">
+            <tr>
+                <td><button><a href="{{url_for("main_login")}}">Iniciar sesion</a></button></td>
+            </tr>
+            <tr>
+                <td><button><a href="{{url_for("main_register")}}" >Registrarse</a></button></td>
+            </tr>
         </table>
 {% endblock %}

@@ -91,7 +91,7 @@ class task(Form):
 
     description = StringField("Descripcion",
                             [
-                                validators.length(max=100, message="no puede ingresar mas de 100 caracteres")
+                                validators.length(max=200, message="no puede ingresar mas de 100 caracteres")
                             ])
 
     date = DateField("Fecha",

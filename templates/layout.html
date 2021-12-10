@@ -6,26 +6,30 @@
         <title>{% block title %} Flask {% endblock %} | Calendario Agroganadero</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="{{ url_for("static", filename="images/descarga.png") }}" />
         <link rel="stylesheet" href="{{ url_for("static", filename="style.css") }}">
     </head>
     <body>
-        <h1>Calendario Agroganadero</h1>
+        <h1 class="title">Calendario Agroganadero</h1>
         <hr/>
-            <ul class="calendar">
+            <ul class="links">
                 <li class="link">
-                    <button><a href="{{url_for('calendar')}}">Inicio</a></button>
+                    <button><a href="{{ url_for("calendar") }}">Inicio</a></button>
                 </li>
                  <li class="link">
-                    <button><a href="{{url_for('companies')}}">Contactos</a></button>
+                    <button><a href="{{ url_for("companies") }}">Contactos</a></button>
                 </li>
                 <li class="link">
-                    <button><a href="{{url_for('profile')}}">Perfil</a></button>
+                    <button><a href="{{ url_for('profile') }}">Perfil</a></button>
                 </li>
                 <li class="link">
-                    <button><a href="{{url_for('seeds')}}">Semillas</a></button>
+                    <button><a href="{{ url_for('seeds') }}">Semillas</a></button>
                 </li>
                 <li class="link">
-                    <button><a href="{{url_for('logout')}}">Cerrar Sesion</a></button>
+                    <button><a href="{{ url_for('tasks') }}">Notas</a></button>
+                </li>
+                <li class="link">
+                    <button><a href="{{ url_for('main_logout') }}">Cerrar Sesion</a></button>
                 </li>
             </ul>
         <hr/>
@@ -40,9 +44,19 @@
                 </ul>
             {% endif %}
         {% endwith %}
-        <section id="content">
+        <section class="content">
             {% block contenido%} {% endblock %}
         </section>
-    
+    <footer>
+        <ul class="calendar">
+            <li>nombre De la empresa</li>
+            <li><img src="{{ url_for("static", filename="images/descarga.png") }}" width="100"/></li>
+            <ul class="calendar-header">
+                <li> 999 999 999</li>
+                <li> 999 999 999</li>
+                <li> 999 999 999</li>
+            </ul>
+        </ul>
+    </footer>
     </body>
 </html>

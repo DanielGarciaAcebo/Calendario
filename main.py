@@ -1,25 +1,23 @@
 # imports
-import html
-import flask
-from flask import session
-from flask import Flask, redirect, render_template, request, flash, url_for
-import pymysql
-from werkzeug.wrappers import Response
 from typing import List, Optional, Tuple, cast  # noqa: F401
+
+import os
+import pymysql
+from flask import redirect, render_template, request, flash, url_for,Flask
+from flask import session
+from werkzeug.wrappers import Response
 
 # own imports
 import auth
-import forms
 import db
-from ownApp import app
+import forms
 from gregorian_calendar import GregorianCalendar
 
 
 # ------------------------------Creation for debug------------------------------------------
-if __name__ == "__main__":
-    app.secret_key = "VCGwYo8Kjr"
+app = Flask(__name__)
 
-    app.run(debug=True)
+
 
 
 # ---------------------------------connect DB-------------------------------------------
@@ -43,55 +41,61 @@ def index():
 
 
 # ---------------------------Login and registrer and logout-------------------------------------
-
-@app.route("/login")
-@app.route("/login", methods=["POST"])
-def login():
-    data = request.form
-    form = forms.login(data)
-    if request.method == "POST" and form.validate() == True:
-            print(form.name.data)
-            auth.login(form.email.data, form.name.data, form.password.data)
-            flash("Ha iniciado correctamente")
-            return redirect(url_for("calendar"))
+@app.route("/login/")
+@app.route("/login/", methods=["POST"])
+def main_login():
+    form = forms.login(request.form)
+    if request.method == "POST" and form.validate():
+        email = form.email.data
+        name = form.name.data
+        password = form.password.data
+        return auth.login(email, name, password)
     else:
         return render_template("login.html", form=form)
 
 
-@app.route("/register")
-@app.route("/register", methods=["POST,GET"])
-def register():
+@app.route("/register/")
+@app.route("/register/", methods=["POST,GET"])
+def main_register():
     form = forms.register(request.form)
     if request.method == "POST" and form.validate():
         print(form.name.data)
-        auth.register(form.name.data, form.surname.data,
-                      form.number.data, form.email.data,
-                      form.password.data, form.companyType.data,
-                      form.cityHall.data, form.companyName.data)
-        return redirect(url_for("calendar"))
+        name = form.name.data
+        surname = form.surname.data
+        number = form.number.data
+        email = form.email.data
+        password = form.password.data
+        companyType = form.companyType.data
+        cityHall = form.cityHall.data
+        companyName = form.companyName.data
+        auth.register(name, surname, number, email,
+                      password, companyType, cityHall,
+                      companyName)
+
+        return redirect(url_for("calendario"))
     else:
         return render_template("register.html", form=form)
 
 
-@app.route("/logout")
-def logout():
+@app.route("/logout/")
+def main_logout():
     auth.logout()
     return render_template("index.html")
 
 
 # -------------------------------------Calendar-----------------------------------------------
 @app.route("/calendar/")
+@app.route("/calendar/", methods = ["POST,GET"])
 def calendar():
     if "user_id" in session:
         user_id = session["user_id"]
-        print(user_id)
+        task = db.get_taks(str(user_id))
         current_day, current_month, current_year = GregorianCalendar.current_date()
         year = int(request.args.get("y", current_year))
         year = max(min(year, 9999), 1)
         month = int(request.args.get("m", current_month))
         month = max(min(month, 12), 1)
         month_name = GregorianCalendar.MONTH_NAMES[month - 1]
-
         weekdays_headers = ["LUN", "MAR", "MIE", "JUE", "VIE", "SAB", "DOM"]
 
         return cast(
@@ -105,10 +109,11 @@ def calendar():
                 previous_month_link=previous_month_link(year, month),
                 next_month_link=next_month_link(year, month),
                 weekdays_headers=weekdays_headers,
+                tasks=task,
             ),
         )
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("index"))
 
 
 def previous_month_link(year: int, month: int) -> str:
@@ -130,102 +135,117 @@ def next_month_link(year: int, month: int) -> str:
 
 
 # ----------------------------------Profile--------------------------------------------------
-@app.route("/calendar/profile")
+@app.route("/calendar/profile/")
 def profile():
     if "user_id" in session:
-        return "algo"
+        user_id = session["user_id"]
+        user = db.get_user_profile(user_id)
+        company = db.get_company_profile(user_id)
+        companyTypeID = company[3]
+        companyType = db.get_type_company_profile(companyTypeID)
+        return render_template("profile.html", user=user, company=company, typeCompany=companyType)
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("index"))
 
 
 # --------------------------------------Contacts----------------------------------------------
-@app.route("/calendar/companies")
+@app.route("/calendar/companies/")
 def companies():
     if "user_id" in session:
-        companies = db.companies()
-        print(companies)
-        return render_template("contacts.html", companies=companies)
+        companyTipeID = db.get_companies()
+        print(companyTipeID)
+        return render_template("contacts.html", companies=companyTipeID )
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("index"))
 
-
-@app.route("/calendar/companies/contacts")
-@app.route("/calendar/companies/contacts", methods=["GET"])
-def companies_contacts():
+@app.route("/calendar/companies/contacts/")
+@app.route("/calendar/companies/contacts/", methods=["POST,GET"])
+def contacts():
     if "user_id" in session:
-        companies = db.companies()
-        data = request.form.get("compañia")
-        contacts = db.contacts(data)
-        print(data)
-        print(contacts)
-        return render_template("contacts.html", companies=companies, contacts = contacts)
+        if request.method == "GET":
+            contactsID = request.form["contact"]
+            print(contactsID)
+            return db.get_contacts(contactsID)
+        else:
+            return redirect(url_for("companies"))
     else:
-        return redirect(url_for("login"))
-
-
-@app.route("/calendar/companies/contacts/contact")
-@app.route("/calendar/companies/contacts/contact", methods=["POST,GET"])
-def companies_contacts_contact():
-    if "user_id" in session:
-        companies = db.companies()
-        contacts = db.contacts(request.form.values)
-        print(contacts)
-        contact = db.contact(request.form.values)
-        print(contact)
-        return render_template("contacts.html", companies=companies, contacts=contacts, contact=contact)
-    else:
-        return redirect(url_for("login"))
+        return redirect(url_for("index"))
 
 
 # ----------------------------------SEEDS---------------------------------------
-
-@app.route("/calendar/seeds")
+@app.route("/calendar/seeds/")
 def seeds():
     if "user_id" in session:
         seed = db.grow()
         return render_template("seeds.html", seeds=seed)
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("index"))
+
 
 # ---------------------------------TASK--------------------------------------------
-
-@app.route("/calendar/task", methods=["POST,GET"])
+@app.route("/calendar/task/")
 def tasks():
     if "user_id" in session:
         user = session["user_id"]
         notes = db.get_taks(user)
         return render_template("task.html", tasks=notes)
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("index"))
 
 
-@app.route("/calendar/task/edit", methods=["POST,GET"])
-def tasks_edit():
-    if "user_id" in session:
-        user = session["user_id"]
-        notes = db.get_taks(user)
-        return render_template("task.html", tasks=notes)
-    else:
-        return redirect(url_for("login"))
-
-
-@app.route("/calendar/task/delete", methods=["POST,GET"])
+@app.route("/calendar/task/delete/", methods=["POST,GET"])
 def tasks_delete():
     if "user_id" in session:
-        user = session["user_id"]
-        data = request.form
-        task = data.keys()
-        notes = db.delete_task(user, task)
-        return render_template("task.html", tasks=notes)
+        if request.method == "POST" and request.form["delete"]:
+            user = session["user_id"]
+            task = request.form["delete"]
+            db.delete_task(user, task)
+            return redirect(url_for("tasks"))
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("index"))
 
 
-@app.route("/calendar/task/create")
+@app.route("/calendar/task/create/")
 def tasks_create():
     if "user_id" in session:
-        user = session["user_id"]
-        notes = db.get_taks(user)
-        return render_template("task.html", tasks=notes)
+        form = forms.task(request.form)
+        if request.method =="POST" and form.validate():
+            user = session["user_id"]
+            name = form.name.data
+            comment = form.description.data
+            date = form.date.data
+            return db.set_task(user, name, comment, date)
+
+        else:
+            return render_template("createTask.html", form=form)
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("index"))
+
+
+@app.route("/calendar/task/edit/", methods=["POST,GET"])
+def tasks_edit():
+    if "user_id" in session:
+        if request.method == "POST" and request.form["nameTask"]:
+            user = session["user_id"]
+            task = request.form["Enviar"]
+            name = request.form["nameTask"]
+            description = request.form["descriptionTask"]
+            date = request.form["dateTask"]
+            db.set_update_task(task, user, name, description, date)
+            return redirect(url_for("tasks"))
+        else:
+            taskid = request.form["edit"]
+            task = db.get_update_task(taskid)
+            return render_template("createTask.html", task=task)
+
+    else:
+        return redirect(url_for("index"))
+
+
+if __name__ == "__main__":
+    secret_key = os.urandom(12)
+    app.secret_key = secret_key
+    app.config["SECRET_KEY"] = secret_key
+
+
+    app.run(debug=True)

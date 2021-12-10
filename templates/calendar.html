@@ -39,8 +39,19 @@
                         <span class="daynumber">
                 {% endif %}
                 {{ day.day }}</span>
-
             </li>
         {% endfor %}
     </ul>
+        <table>
+            <tr>
+                <td>Nombre</td>
+                <td>fecha</td>
+            </tr>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task[1] }}</td>
+                    <td>{{ task[3] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
 {% endblock %}

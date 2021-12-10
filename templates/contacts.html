@@ -3,48 +3,20 @@
     {% block title %} contactos {% endblock %}
 
         {% block contenido %}
-            <p>Tipo de empresa que este buscando</p>
-            <form method="POST" name="contacts">
-                <select>
-                    {% for company in companies %}
-                        <option value="{{company[0]}}">{{company[1]}}</option>
-                    {% endfor %}
-                </select>
-                <button type="submit" ><a href="{{ url_for('companies_contacts', method="post")}}"> buscar contactos </a></button>
-            </form>
-            {% if contacts %}
-                <hr/>
-                <table>
-                    <tr>
-                        <td>Nombre compañia</td>
-                        <td>Ayuntamiento</td>
-                    </tr>
-                    {% for contact in contacts %}
-                        <tr>
-                            <td>{{ contact[1] }}</td>
-                            <td>{{ contact[2] }}</td>
-                            <td><input type="radio" value="{{ contact[0] }}" >/td>
-                        </tr>
-                    {% endfor %}
-                </table>
-                <button><a href="{{ url_for('companies_contacts_contact')}}" methods="POST"> Ponerse en contacto </a></button>
-            {% endif %}
-            {% if contact %}
-                <table>
-                    <tr>
-                        <td>Nombre propietario</td>
-                        <td>Apellidos del propietario</td>
-                        <td>Email</td>
-                        <td>Numero de telefono</td>
-                    </tr>
-                    <tr>
-                        {% for descrip in description %}
-                            <td>{{ descrip[0] }}</td>
-                            <td>{{ descrip[1] }}</td>
-                            <td>{{ descrip[2] }}</td>
-                            <td>{{ descrip[3] }}</td>
+            <form name="contact" method="POST">
+                <label>Tipo de empresa que este buscando</label>
+                <br/>
+                <br/>
+                <label>
+                    <select name="companies" id="companies">
+                        {% for company in companies %}
+                            <option value="{{company[0]}}">{{company[1]}}</option>
                         {% endfor %}
-                    </tr>
-                </table>
-            {% endif %}
+                    </select>
+                </label>
+                <br/>
+                <br/>
+                <button><a href="{{ url_for("contacts") }}" methods="POST" type="submit"> buscar contactos </a></button>
+            </form>
+
         {% endblock %}

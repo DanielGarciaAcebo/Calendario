@@ -6,13 +6,12 @@
 
     <h1> Registrarse </h1>
 
-        <form method="POST">
-            {% from "_macro.html" import showForms %}
-                {{ showForms(form) }}
-
-                <button type="submit"><a href="{{url_for('register', method="POST")}}">Registrarse</a></button>
-        </form>
-        <br/>
-        <button><a href="{{url_for('index')}}">Volver Atras</a></button>
-        <button><a href="{{url_for('login')}}" >Iniciar Sesion</a></button>
+    <form method="POST">
+        {% from "_macro.html" import showForms %}
+            {{ showForms(form) }}
+        <button><a href="{{ url_for('main_register', method="POST") }}">Registrarse</a></button>
+    </form>
+    <br/>
+    <button><a href="{{ url_for('index') }}">Volver Atras</a></button>
+    <button><a href="{{ url_for("main_login") }}" >Iniciar Sesion</a></button>
 {% endblock%}

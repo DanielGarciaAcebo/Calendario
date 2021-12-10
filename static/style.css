@@ -1,15 +1,31 @@
+html{
+    background-image: url("https://p4.wallpaperbetter.com/wallpaper/163/415/702/animal-farm-cow-summer-wallpaper-preview.jpg") ;
+    background-repeat: no-repeat;
+    background-size:100% 110%;
+}
 body {
     font-family: Roboto, Helvetica, Arial, sans-serif;
-    color: #222;
-    background-color: #FCFCFC;
+    color: black;
 }
-
+button{
+    text-decoration: none;
+}
+.title{
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    text-align: center;
+    color: #F7F7F7;
+}
+.index{
+    display: flex;
+    justify-content: center
+}
 li {
     list-style: none;
 }
 
 .header {
-    display: inline;
+    display: compact;
+    text-align: center;
 }
 
 .header .current-date {
@@ -38,27 +54,6 @@ li {
     text-decoration: none;
 }
 
-.header-button {
-    padding: 1px;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.button {
-    font-size: 1.3em;
-    font-weight: 700;
-    padding: 3px 6px 3px 6px;
-    margin-left: 1px;
-    margin-right: 1px;
-    border-radius: 2px;
-    text-decoration: none;
-}
-
-.form-button {
-    padding: 1px;
-    margin-top: 9px;
-    margin-right: 3px;
-}
 
 .color-picker {
     padding: 0;
@@ -67,16 +62,6 @@ li {
 .smaller {
     padding: 0px 3px 2px 3px;
     font-size: 12px;
-}
-
-
-
-
-.hide-recurrent-task {
-    color: #F7F7F7;
-    background-color: #556270;
-    margin-right: 2px;
-    float: right;
 }
 
 
@@ -120,9 +105,33 @@ li {
   border-bottom: #DADCE0 1px solid;
   border-left: #DADCE0 1px solid;
 }
+.links {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+    min-width: 400px;
+    border-bottom: #DADCE0 1px solid;
+    border-left: #DADCE0 1px solid;
+}
+.link{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+    min-width: 300px;
+    border-bottom: #DADCE0 1px solid;
+    border-left: #DADCE0 1px solid;
+    min-height: 100px;
+    text-decoration: none;
+}
 
 .day {
-  background-color: #F9F9F9;
+
   padding: 3px;
   margin: 0;
   min-height: 120px;
@@ -138,7 +147,6 @@ li {
 }
 
 .othermonth {
-  background-color: #F3F3F3;
   cursor: auto;
 }
 
@@ -230,4 +238,14 @@ span.daynumber-current {
     .day {
         min-height: 30px;
     }
+}
+
+footer{
+    position:fixed;
+    left:0;
+    margin-top:10px;
+    bottom:0;
+    height:85px;
+    width:100%;
+    background: #3EB34F;
 }

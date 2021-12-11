@@ -2,39 +2,39 @@
 
     {% block title %} Seeds {% endblock %}
     {% block contenido %}
-        <table>
+        <table class="table_seed">
             <tr>
-                <th>Nombre</th>
-                <th>Tiempo optimo para recolecta</th>
-                <th>Tiempo de crecimiento</th>
-                <th>Fecha de recojida</th>
-                <th>Fecha de plantacion</th>
-                <th>Descripcion</th>
+                <th class="th_seed">Nombre</th>
+                <th class="th_seed">Tiempo optimo para recolecta</th>
+                <th class="th_seed">Tiempo de crecimiento</th>
+                <th class="th_seed">Fecha de recojida</th>
+                <th class="th_seed">Fecha de plantacion</th>
+                <th class="th_seed">Descripcion</th>
             </tr>
              {% for seed in seeds %}
-                <tr>
-                    <td>
+                <tr class="tr_seed">
+                    <td class="td_seed">
                         {{seed[1]}}
                     </td>
-                    <td>
+                    <td class="td_seed">
                         {{seed[3]}}
                     </td>
-                    <td>
+                    <td class="td_seed">
                         {{seed[4]}}
                     </td>
-                    <td>
+                    <td class="td_seed">
                         {{seed[5]}}
                     </td>
-                    <td>
+                    <td class="td_seed">
                         {{seed[6]}}
                     </td>
-                    <td>
+                    <td class="td_seed">
                         {{seed[2]}}
                     </td>
                 </tr>
          {%endfor%}
-            <tr>
-                <td><a href="{{ url_for('calendar') }}">Volver al Calendario</a></td>
+            <tr class="tr_seed">
+                <td class="td_seed"><a href="{{ url_for('calendar') }}">Volver al Calendario</a></td>
             </tr>
         </table>
 

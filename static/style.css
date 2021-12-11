@@ -1,14 +1,42 @@
 html{
     background-image: url("https://p4.wallpaperbetter.com/wallpaper/163/415/702/animal-farm-cow-summer-wallpaper-preview.jpg") ;
     background-repeat: no-repeat;
-    background-size:100% 110%;
+    background-size:cover;
 }
 body {
     font-family: Roboto, Helvetica, Arial, sans-serif;
     color: black;
 }
-button{
-    text-decoration: none;
+
+.calendar_task{
+    color: red;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+    min-width: 400px;
+}
+
+button, input[type="submit"], input[type="reset"] {
+        background: none;
+        color: black;
+        border: none;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+        padding: 20px;
+
+}
+a{
+
+    background: none;
+    color: red;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
 }
 .title{
     font-family: Roboto, Helvetica, Arial, sans-serif;
@@ -66,20 +94,23 @@ li {
 
 
 .calendar-header {
-  padding: 0;
-  margin-top: 5px;
-  margin-bottom: 0;
-  display: flex;
-  flex-flow: row wrap;
-  -webkit-flex-flow: row wrap;
-  justify-content: space-around;
-  min-width: 400px;
-  border-left: #DADCE0 1px solid;
+    color: red;
+    padding: 0;
+    margin-top: 5px;
+    margin-bottom: 0;
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+    min-width: 400px;
+    border-left: #DADCE0 1px solid;
 }
 
 .weekday-header {
-  background-color: #F6F6F6;
-  color: #666;
+    background-color: white;
+    filter:alpha(opacity=50);
+    -moz-opacity:.70;opacity:.70;
+  color: red;
   padding: 3px;
   margin: 0;
   list-style:none;
@@ -95,15 +126,28 @@ li {
 }
 
 .calendar {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-flow: row wrap;
-  -webkit-flex-flow: row wrap;
-  justify-content: space-around;
-  min-width: 400px;
-  border-bottom: #DADCE0 1px solid;
-  border-left: #DADCE0 1px solid;
+    background-color: white;
+    filter:alpha(opacity=50);
+    -moz-opacity:.70;opacity:.70;
+    color: red;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+    min-width: 400px;
+}
+a{
+
+    text-decoration: none;
+}
+
+
+.button_link{
+    background-color: white;
+    filter:alpha(opacity=50);
+    -moz-opacity:.70;opacity:.70;
 }
 .links {
     padding: 0;
@@ -112,38 +156,39 @@ li {
     flex-flow: row wrap;
     -webkit-flex-flow: row wrap;
     justify-content: space-around;
-    min-width: 400px;
-    border-bottom: #DADCE0 1px solid;
-    border-left: #DADCE0 1px solid;
+    min-width: 20px;
 }
 .link{
+    background-color: white;
+    filter:alpha(opacity=50);
+    -moz-opacity:.70;opacity:.70;
     padding: 0;
     margin: 0;
     display: flex;
     flex-flow: row wrap;
     -webkit-flex-flow: row wrap;
     justify-content: space-around;
-    min-width: 300px;
-    border-bottom: #DADCE0 1px solid;
+    min-width: 100px;
+    border-right: #DADCE0 1px solid;
     border-left: #DADCE0 1px solid;
     min-height: 100px;
     text-decoration: none;
 }
 
 .day {
-
-  padding: 3px;
-  margin: 0;
-  min-height: 120px;
-  list-style:none;
-  flex-grow: 1;
-  flex-basis: 13.5%;
-  overflow: auto;
-  box-sizing: border-box;
-  cursor: pointer;
-  border-top: #DADCE0 1px solid;
-  border-right: #DADCE0 1px solid;
-  border-bottom: 0px;
+    color: red;
+    padding: 3px;
+    margin: 0;
+    min-height: 120px;
+    list-style:none;
+    flex-grow: 1;
+    flex-basis: 13.5%;
+    overflow: auto;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-top: #DADCE0 1px solid;
+    border-right: #DADCE0 1px solid;
+    border-bottom: 0px;
 }
 
 .othermonth {
@@ -162,7 +207,7 @@ span.daynumber {
 }
 
 span.daynumber-current {
-    font-size: 13.5px;
+
     font-weight: 700;
     color: #F7F7F7;
     background-color: #3EB34F;
@@ -212,12 +257,6 @@ span.daynumber-current {
     background-color: #A1D360;
 }
 
-.error {
-    visibility: visible !important;
-    color: #F7F7F7;
-    background-color: #EB5A46;
-}
-
 @media screen and (max-width:650px) {
 
     .header-button {
@@ -236,6 +275,7 @@ span.daynumber-current {
     }
 
     .day {
+        color: red;
         min-height: 30px;
     }
 }
@@ -247,5 +287,164 @@ footer{
     bottom:0;
     height:85px;
     width:100%;
-    background: #3EB34F;
+    background-color: white;
+    filter:alpha(opacity=50);
+    -moz-opacity:.70;opacity:.70;
+}
+
+.crear_Task{
+
+}
+
+.footer_x{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+    min-width: 400px;
+}
+
+.footer_name{
+    color: #e39514;
+    padding-top: 40px;
+}
+
+.footer_tfs{
+    color: #e39514;
+    padding-top: 5px;
+}
+
+.button_task{
+    border: black 1px;
+    min-width: 100px;
+    padding: 10px;
+}
+
+td{
+    font-size: 13.5px;
+    border: black 1px;
+    min-width: 100px;
+    padding: 10px;
+}
+.task_table{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+    min-width: 400px;
+}
+
+.task_td{
+
+}
+.task_tr{
+    background-color: white;
+    filter:alpha(opacity=50);
+    -moz-opacity:.70;opacity:.70;
+    color: black;
+}
+
+.table_profile{
+
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+    min-width: 400px;
+}
+.td_profile{
+    border: white 0.5px solid;
+    color: black;
+    font-size: 20px;
+    padding: 2px;
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    min-width: 400px;
+}
+
+.tr_profile{
+
+    background-color: white;
+    filter:alpha(opacity=50);
+    -moz-opacity:.70;opacity:.70;
+    padding: 10px;
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+
+    min-width: 400px;
+}
+
+.th_seed,.tr_seed,.td_seed{
+    background-color: white;
+    filter:alpha(opacity=50);
+    -moz-opacity:.70;opacity:.70;
+    color: black
+}
+
+.td_seed,.th_seed{
+    padding-bottom: 5px;
+}
+
+.table_seed{
+    padding-top: 50px;
+    margin: 0;
+
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+    min-width: 400px;
+}
+.index{
+    padding-top: 250px;
+}
+
+.index_link{
+    font-size: 20px;
+    padding-bottom: 10px;
+    background-color: white;
+    filter:alpha(opacity=50);
+    -moz-opacity:.70;opacity:.70;
+    color: black
+}
+
+.login{
+    font-size: 20px;
+    padding-top:250px;
+    padding-left: 800px;
+}
+
+.button_login{
+    text-align: center;
+     border: white 0.5px solid;
+    color: black;
+    font-size: 20px;
+    padding: 2px;
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    min-width: 150px;
+
+    background-color: white;
+    filter:alpha(opacity=50);
+    -moz-opacity:.70;opacity:.70;
+
+}
+
+.login td{
+    font-size: 20px;
+    background-color: white;
+    filter:alpha(opacity=50);
+    -moz-opacity:.70;opacity:.70;
 }

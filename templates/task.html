@@ -1,28 +1,28 @@
 {% extends "layout.html" %}
     {% block title %} Notas{% endblock %}
     {% block contenido %}
-        <h1>Notas</h1>
+        <h1 class="title">Notas</h1>
         <form method="POST">
-            <table>
-                <tr>
-                    <td>Nombre</td>
-                    <td>Descripcion</td>
-                    <td>Fecha</td>
-                    <td>Editar</td>
-                    <td>Eliminar</td>
+            <table class="task_table">
+                <tr class="task_tr">
+                    <td class="task_td">Nombre</td>
+                    <td class="task_td">Descripcion</td>
+                    <td class="task_td">Fecha</td>
+                    <td class="task_td">Editar</td>
+                    <td class="task_td">Eliminar</td>
                 </tr>
                 {% if tasks %}
                     {% for task in tasks %}
-                        <tr>
-                            <td> {{ task[1] }} </td>
-                            <td> {{ task[2] }} </td>
-                            <td> {{ task[3] }} </td>
-                            <td> <button type="submit" id="edit" name="edit" value="{{ task[0] }}"><a href="{{ url_for("tasks_edit", method="POST") }}"> Editar</a></button></td>
-                            <td> <button type="submit" id="delete" name="delete" value="{{ task[0] }}"><a href="{{ url_for("tasks_delete", method="POST") }}">Eliminar</a></button> </td>
+                        <tr class="task_tr">
+                            <td class="task_td"> {{ task[1] }} </td>
+                            <td class="task_td"> {{ task[2] }} </td>
+                            <td class="task_td"> {{ task[3] }} </td>
+                            <td class="task_td"> <button type="submit" id="edit" name="edit" value="{{ task[0] }}" class="button_task"><a href="{{ url_for("tasks_edit", method="POST") }}"> Editar</a></button></td>
+                            <td class="task_td"> <button type="submit" id="delete" name="delete" value="{{ task[0] }}" class="button_task"><a href="{{ url_for("tasks_delete", method="POST") }}">Eliminar</a></button> </td>
                         </tr>
                     {% endfor %}
                 {% endif %}
-                <button type="submit"><a href="{{ url_for("tasks_create")}}" methods="POST"> Crear Nota</a></button>
+                <button type="submit" class="title"><a href="{{ url_for("tasks_create")}}" methods="POST"> Crear Nota</a></button>
             </table>
         </form>
     {% endblock %}

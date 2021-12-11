@@ -4,15 +4,15 @@
 
 {% block content %}
 
-    <h1> Inicio de Sesion</h1>
+    <h1 class="title"> Inicio de Sesion</h1>
 
-    <form method="post">
+    <form method="post" class="login">
         {% from "_macro.html" import showForms %}
             {{ showForms(form) }}
-        <button><a href="{{ url_for("main_login") }}" methods="POST" type="submit">Iniciar sesion</a></button>
+        <button class="button_link"><a href="{{ url_for("main_login") }}" methods="POST" type="submit">Iniciar sesion</a></button>
         <br/>
         <br/>
     </form>
-    <button><a href="{{ url_for('index') }}">Volver Atras</a></button>
-    <button><a href="{{ url_for('main_register') }}" >Registrarse</a></button>
+    <button class="button_login"><a href="{{ url_for('index') }}">Volver Atras</a></button>
+    <button class="button_login"><a href="{{ url_for('main_register') }}" >Registrarse</a></button>
 {% endblock %}

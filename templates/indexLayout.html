@@ -10,19 +10,19 @@
         <link rel="shortcut icon" href="{{ url_for("static", filename="images/descarga.png") }}" />
 </head>
 <body>
-    <h1>CALENDARIO AGROGANADERO</h1>
+    <h1 class="title">CALENDARIO AGROGANADERO</h1>
     <hr/>
     <section id="content">
          {% block content %} {% endblock %}
     </section>
     <footer>
-        <ul class="calendar">
-            <li>nombre De la empresa</li>
-            <li><img src="{{ url_for("static", filename="images/descarga.png") }}" width="100"/></li>
-            <ul class="calendar-header">
-                <li> 999 999 999</li>
-                <li> 999 999 999</li>
-                <li> 999 999 999</li>
+        <ul class="footer_x">
+            <li class="footer_name">nombre De la empresa</li>
+            <li><img src="{{ url_for("static", filename="images/hoja.png") }}" width="100"/></li>
+            <ul class="footer_tfs">
+                <li class="footer_tf"> 999 999 999</li>
+                <li class="footer_tf"> 999 999 999</li>
+                <li class="footer_tf"> 999 999 999</li>
             </ul>
         </ul>
     </footer>

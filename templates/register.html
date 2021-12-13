@@ -1,17 +1,18 @@
 {% extends "indexLayout.html" %}
 
-{% block title %} login calendario{% endblock %}
+{% block title %} Registrarse {% endblock %}
 
 {% block content %}
 
-    <h1> Registrarse </h1>
+    <h1 class="title">Registro</h1>
 
-    <form method="POST">
+    <form method="POST" action="{{ url_for("main_register") }}" class="login">
         {% from "_macro.html" import showForms %}
             {{ showForms(form) }}
-        <button><a href="{{ url_for('main_register', method="POST") }}">Registrarse</a></button>
+        <button class="button_link" type="submit">Registrarse</button>
+        <br/>
+        <br/>
     </form>
-    <br/>
-    <button><a href="{{ url_for('index') }}">Volver Atras</a></button>
-    <button><a href="{{ url_for("main_login") }}" >Iniciar Sesion</a></button>
-{% endblock%}
+    <button class="button_login"><a href="{{ url_for('index') }}">Volver Atras</a></button>
+    <button class="button_login"><a href="{{ url_for('main_login') }}" >Inicar sesion</a></button>
+{% endblock %}

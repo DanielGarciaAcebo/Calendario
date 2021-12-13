@@ -4,9 +4,9 @@
             <tr>
                 <td>{{value.label}}</td>
                 <td>{{value(**kwargs)|safe}}</td>
+                <td>{{ value.errors[0] }}</td>
             </tr>
         {% endfor %}
-        </tr>
     </table>
 {% endmacro %}
 

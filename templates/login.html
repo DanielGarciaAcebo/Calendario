@@ -1,15 +1,15 @@
 {% extends "indexLayout.html" %}
 
-{% block title %} login calendario{% endblock %} 
+{% block title %} login {% endblock %}
 
 {% block content %}
 
     <h1 class="title"> Inicio de Sesion</h1>
 
-    <form method="post" class="login">
+    <form method="POST" action="{{ url_for("main_login") }}" class="login">
         {% from "_macro.html" import showForms %}
             {{ showForms(form) }}
-        <button class="button_link"><a href="{{ url_for("main_login") }}" methods="POST" type="submit">Iniciar sesion</a></button>
+        <button class="button_link">Iniciar sesion</button>
         <br/>
         <br/>
     </form>

@@ -2,27 +2,42 @@
 
 {% block title %} contactos {% endblock %}
 {% block contenido %}
-    <table>
-        <tr>
-            <td>Nombre compañia</td>
-            <td>Ayuntamiento</td>
-            <td>Nombre propietario</td>
-            <td>Apellidos del propietario</td>
-            <td>Email</td>
-            <td>Numero de telefono</td>
+    <form action="{{ url_for("contacts") }}" method="POST">
+        <table class="table_seed" >
+        <tr class="tr_seed">
+            <td colspan="4" class="tr_seed"> Selecciona un tipo de empresa</td>
         </tr>
-         {% for contact in contacts and user in users %}
-                <tr>
-                    <td>{{ contact[1] }}</td>
-                    <td>{{ contact[2] }}</td>
-                    {% if contact[0] == user[6] %}
-                        <td>{{ user[0] }}</td>
-                        <td>{{ user[1] }}</td>
-                        <td>{{ user[2] }}</td>
-                        <td>{{ user[3] }}</td>
-                    {% endif %}
+        <tr class="tr_seed">
+                {% for companies in companiesType %}
+                   <td class="td_seed"><button type="submit" value="{{ companies[0] }}" id="companyID" name="companyID" class="button_link">{{ companies[1] }}</button></td>
+                {% endfor %}
+        </tr>
+        </table>
+    </form>
+
+    {% if companyID %}
+         <table class="table_seed">
+        {% for contact in company %}
+             {% if contact[3] == companyID %}
+                <tr class="tr_seed">
+                    <td class="td_seed">{{ contact[1] }}</td>
+                    <td class="td_seed">{{ contact[2] }}</td>
+                    {% for user in users %}
+                        {% if contact[0] == user[6] %}
+                            <td class="td_seed">{{ user[1] }}</td>
+                            <td class="td_seed">{{ user[3] }}</td>
+                            <td class="td_seed">{{ user[4] }}</td>
+                            <td class="td_seed">{{ user[5] }}</td>
+                        {% endif %}
+                    {% endfor %}
                 </tr>
-         {% endfor %}
-    </table>
-     <button><a href="{{ url_for("companies_contacts") }}" methods="POST">volver atras </a></button>
+            {% endif %}
+        {% endfor %}
+        </table>
+    {%endif %}
 {% endblock %}
+
+
+
+
+

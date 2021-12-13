@@ -60,18 +60,21 @@ def get_companies():
     return companies
 
 
-def get_contacts(companyID):
+def get_contacts():
     conexion = main.conect()
     with conexion.cursor() as cursor:
-        cursor.execute(f"SELECT ID_COMPANY, NAME_COMPANY, CITYHALL  FROM COMPANY WHERE COMPANY_TYPE_ID = %s", (companyID,))
+        cursor.execute(f"SELECT * FROM COMPANY ")
         contacts = cursor.fetchall()
     conexion.commit()
+    return contacts
+
+def get_users():
+    conexion = main.conect()
     with conexion.cursor() as cursor:
-        cursor.execute(f"SELECT *  FROM COMPANY WHERE USER")
-        users = cursor.fetchall()
+        cursor.execute(f"SELECT * FROM USER ")
+        user = cursor.fetchall()
     conexion.commit()
-    conexion.close()
-    return main.render_template("contact.html", contacts=contacts, users=users)
+    return user
 
 
 
@@ -89,11 +92,16 @@ def get_taks(ID):
 def set_task(userID, name, comment, date):
     conexion = main.conect()
     with conexion.cursor() as cursor1:
-        cursor1(f"SELECT NOTES_ID +1 FROM TASK ORDER BY NOTES_ID DESC LIMIT 1")
+        cursor1.execute("SELECT NOTES_ID +1 FROM TASK ORDER BY NOTES_ID DESC LIMIT 1")
         noteID = cursor1.fetchone()
+    print(noteID)
+    if noteID== None:
+        noteID=1
+    conexion.commit()
+    conexion.close()
+    conexion.ping()
     with conexion.cursor() as cursor2:
-        cursor2.execute(f"INSERT INTO TASK (NOTES_ID, NAME, COMMENT, DATE, USER) "
-                        f"VALUES(%s,%s,%s,%s,%s)", (noteID, name, comment, date, userID))
+        cursor2.execute("INSERT INTO TASK (NOTES_ID, NAME, COMMENT, DATE, USER ) VALUES(%s,%s,%s,%s,%s)", (noteID, name, comment, date, userID))
     conexion.commit()
     conexion.close()
     return main.redirect(main.url_for("tasks"))

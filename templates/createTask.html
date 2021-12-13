@@ -2,23 +2,26 @@
 {% block title %} Crear Notas{% endblock %}
     {% block contenido %}
         {% if task %}
-            <form method="POST" >
-                <table>
-                    <tr>
+            <form method="POST"  action="{{ url_for("tasks_edit") }}">
+                <table class="task_table">
+                    <tr class="task_tr">
                         <td> <label for="nameTask"> Nombre de la Nota</label>
                         <input id="nameTask" name="nameTask" type="text" maxlength="200" required value="{{ task[1] }}"></td>
                     </tr>
-                    <tr>
+                    <tr class="task_tr">
                         <td> <label for="descriptionTask">Descripcion de la nota</label>
-                        <input id="descriptionTask" name="descriptionTask" type="text" maxlength="200" required value="{{ task[2] }}"></td>
+                            <label>
+                                <textarea id="descriptionTask" name="descriptionTask" required > {{ task[2] }}</textarea>
+                            </label>
+                        </td>
                     </tr>
-                    <tr>
+                    <tr class="task_tr">
                         <td>
                             <label for ="dateTask"> Fecha de la nota</label>
                             <input id="dateTask" name="dateTask" type="date" required value="{{ task[3] }}">
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="task_tr">
                         <td>
                             <button type="submit" id="Enviar" name="Enviar" value="{{ task[0] }}">Enviar</button>
                         </td>
@@ -27,10 +30,13 @@
             </form>
         {% else %}
             {% if form %}
-                <form method="POST" >
+                <form action="{{ url_for("tasks_create") }}" method="POST" class="login">
                     {% from "_macro.html" import showForms %}
                         {{ showForms(form) }}
-                    <button type="submit"> Enviar </button>
+                    <tr class="task_td">
+                        <td ><button type="submit" class="button_link"> Enviar </button></td>
+                    </tr>
+
                 </form>
             {% endif %}
         {% endif %}

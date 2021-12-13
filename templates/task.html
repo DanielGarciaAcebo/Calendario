@@ -2,7 +2,7 @@
     {% block title %} Notas{% endblock %}
     {% block contenido %}
         <h1 class="title">Notas</h1>
-        <form method="POST">
+
             <table class="task_table">
                 <tr class="task_tr">
                     <td class="task_td">Nombre</td>
@@ -17,12 +17,16 @@
                             <td class="task_td"> {{ task[1] }} </td>
                             <td class="task_td"> {{ task[2] }} </td>
                             <td class="task_td"> {{ task[3] }} </td>
-                            <td class="task_td"> <button type="submit" id="edit" name="edit" value="{{ task[0] }}" class="button_task"><a href="{{ url_for("tasks_edit", method="POST") }}"> Editar</a></button></td>
-                            <td class="task_td"> <button type="submit" id="delete" name="delete" value="{{ task[0] }}" class="button_task"><a href="{{ url_for("tasks_delete", method="POST") }}">Eliminar</a></button> </td>
+                            <form method="POST" action="{{ url_for("tasks_edit") }}">
+                                <td class="task_td"> <button type="submit" id="edit" name="edit" value="{{ task[0] }}" class="button_task"> Editar</button></td>
+                           </form>
+
+                            <form method="POST" action="{{ url_for("tasks_delete") }}">
+                                <td class="task_td"> <button type="submit" id="delete" name="delete" value="{{ task[0] }}" class="button_task">Eliminar</button> </td>
+                             </form>
                         </tr>
                     {% endfor %}
                 {% endif %}
-                <button type="submit" class="title"><a href="{{ url_for("tasks_create")}}" methods="POST"> Crear Nota</a></button>
+                <button type="submit" class="title"><a href="{{ url_for("tasks_create")}}" methods="POST" class="button_link"> Crear Nota</a></button>
             </table>
-        </form>
     {% endblock %}

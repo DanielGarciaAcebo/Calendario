@@ -3,8 +3,7 @@ from typing import List, Optional, Tuple, cast  # noqa: F401
 
 import os
 import pymysql
-from flask import redirect, render_template, request, flash, url_for,Flask
-from flask import session
+from flask import redirect, render_template, request, flash, url_for, Flask, session
 from werkzeug.wrappers import Response
 
 # own imports
@@ -17,6 +16,10 @@ from gregorian_calendar import GregorianCalendar
 # ------------------------------Creation for debug------------------------------------------
 app = Flask(__name__)
 
+# ------------------------------Secret key------------------------------------------
+secret_key = os.urandom(12)
+app.secret_key = secret_key
+app.config["SECRET_KEY"] = secret_key
 
 
 
@@ -55,24 +58,22 @@ def main_login():
 
 
 @app.route("/register/")
-@app.route("/register/", methods=["POST,GET"])
+@app.route("/register/", methods=["POST"])
 def main_register():
+    print(request.method)
     form = forms.register(request.form)
-    if request.method == "POST" and form.validate():
-        print(form.name.data)
+    print("fuera")
+    if request.method == "POST":
+        print("dentro")
+        email = form.email.data
         name = form.name.data
+        password = form.password.data
         surname = form.surname.data
         number = form.number.data
-        email = form.email.data
-        password = form.password.data
         companyType = form.companyType.data
-        cityHall = form.cityHall.data
         companyName = form.companyName.data
-        auth.register(name, surname, number, email,
-                      password, companyType, cityHall,
-                      companyName)
-
-        return redirect(url_for("calendario"))
+        cityHall = form.cityHall.data
+        return auth.register(name, surname, number, email, password, companyType, companyName, cityHall)
     else:
         return render_template("register.html", form=form)
 
@@ -152,26 +153,26 @@ def profile():
 @app.route("/calendar/companies/")
 def companies():
     if "user_id" in session:
-        companyTipeID = db.get_companies()
-        print(companyTipeID)
-        return render_template("contacts.html", companies=companyTipeID )
+        companyTipe = db.get_companies()
+        return render_template("contact.html", companiesType=companyTipe)
     else:
         return redirect(url_for("index"))
 
-@app.route("/calendar/companies/contacts/")
-@app.route("/calendar/companies/contacts/", methods=["POST,GET"])
+@app.route("/calendar/companies/contact", methods=["POST"])
 def contacts():
     if "user_id" in session:
-        if request.method == "GET":
-            contactsID = request.form["contact"]
-            print(contactsID)
-            return db.get_contacts(contactsID)
-        else:
-            return redirect(url_for("companies"))
+        if request.method == "POST":
+            companyID = request.form.get("companyID")
+            print(companyID)
+            companyTipe = db.get_companies()
+            print(companyTipe)
+            company = db.get_contacts()
+            print(company)
+            users = db.get_users()
+            print(users)
+            return render_template("contact.html", companiesType=companyTipe, company=company, users=users, companyID=int(companyID))
     else:
         return redirect(url_for("index"))
-
-
 # ----------------------------------SEEDS---------------------------------------
 @app.route("/calendar/seeds/")
 def seeds():
@@ -192,49 +193,52 @@ def tasks():
     else:
         return redirect(url_for("index"))
 
-
-@app.route("/calendar/task/delete/", methods=["POST,GET"])
+@app.route("/calendar/task/delete/")
+@app.route("/calendar/task/delete/", methods=["POST"])
 def tasks_delete():
     if "user_id" in session:
-        if request.method == "POST" and request.form["delete"]:
+            print(request.method)
             user = session["user_id"]
-            task = request.form["delete"]
+            task = request.form.get("delete")
+            print(task)
             db.delete_task(user, task)
             return redirect(url_for("tasks"))
     else:
         return redirect(url_for("index"))
 
-
 @app.route("/calendar/task/create/")
+@app.route("/calendar/task/create/", methods=["POST"])
 def tasks_create():
     if "user_id" in session:
         form = forms.task(request.form)
-        if request.method =="POST" and form.validate():
+        if request.method == "POST" and form.validate():
             user = session["user_id"]
             name = form.name.data
             comment = form.description.data
             date = form.date.data
             return db.set_task(user, name, comment, date)
-
         else:
             return render_template("createTask.html", form=form)
     else:
         return redirect(url_for("index"))
 
 
-@app.route("/calendar/task/edit/", methods=["POST,GET"])
+@app.route("/calendar/task/edit/")
+@app.route("/calendar/task/edit/", methods=["POST"])
 def tasks_edit():
     if "user_id" in session:
-        if request.method == "POST" and request.form["nameTask"]:
+        print()
+        if request.method == "POST" and request.form.get("nameTask"):
             user = session["user_id"]
-            task = request.form["Enviar"]
-            name = request.form["nameTask"]
-            description = request.form["descriptionTask"]
-            date = request.form["dateTask"]
+            task = request.form.get("Enviar")
+            name = request.form.get("nameTask")
+            description = request.form.get("descriptionTask")
+            date = request.form.get("dateTask")
             db.set_update_task(task, user, name, description, date)
             return redirect(url_for("tasks"))
         else:
-            taskid = request.form["edit"]
+            taskid = request.form.get("edit")
+            print(taskid)
             task = db.get_update_task(taskid)
             return render_template("createTask.html", task=task)
 
@@ -243,9 +247,4 @@ def tasks_edit():
 
 
 if __name__ == "__main__":
-    secret_key = os.urandom(12)
-    app.secret_key = secret_key
-    app.config["SECRET_KEY"] = secret_key
-
-
     app.run(debug=True)

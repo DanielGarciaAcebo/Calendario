@@ -418,13 +418,13 @@ td{
     color: black
 }
 
-.login{
+.login,.register{
     font-size: 20px;
     padding-top:250px;
     padding-left: 800px;
 }
 
-.button_login{
+.button_login, .button_register{
     text-align: center;
      border: white 0.5px solid;
     color: black;
@@ -442,7 +442,7 @@ td{
 
 }
 
-.login td{
+.login td, .register td{
     font-size: 20px;
     background-color: white;
     filter:alpha(opacity=50);
